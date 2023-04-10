@@ -1,6 +1,6 @@
 pipeline {
     agent { label 'jenkins_agent'}
-        tools {
+    tools {
           maven '3.8.7'
         }
     stages {
@@ -24,10 +24,13 @@ pipeline {
                   }
              }
         }
-        stage('Deploy') {
+        stage('Push Image-ECR') {
              steps {
                 script{
                     echo 'Deploy script goes here!'
+                    docker.withRegistry('https://816886327690.dkr.ecr.us-east-2.amazonaws.com','ecr:us-east-2:aws-ecr-creds'){
+                    app.push("${env.BUILD_NUMBER}")
+                    }
                 }
              }
         }
