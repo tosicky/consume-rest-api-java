@@ -30,6 +30,7 @@ pipeline {
                     echo 'Deploy script goes here!'
                     docker.withRegistry('https://816886327690.dkr.ecr.us-east-2.amazonaws.com','ecr:us-east-2:aws-ecr-creds'){
                     app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
                     }
                 }
              }
