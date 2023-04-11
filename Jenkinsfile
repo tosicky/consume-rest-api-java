@@ -20,7 +20,7 @@ pipeline {
         stage('Build Docker'){
              steps {
                  script{
-                    app = docker.build("consume-rest-api-java", "--platform linux/amd64")
+                    app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
                   }
              }
         }
