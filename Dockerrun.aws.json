@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "816886327690.dkr.ecr.us-east-2.amazonaws.com/consume-rest-api-java:15",
+    "Name": "816886327690.dkr.ecr.us-east-2.amazonaws.com/consume-rest-api-java:16",
     "Update": "true"
   },
   "Ports": [
