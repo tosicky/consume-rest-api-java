@@ -29,7 +29,7 @@ pipeline {
                             docker build -t consume-rest-api-java .
                         
                         else
-                            docker build -t consume-rest-api-java --build-arg ARCH=amd64/ .
+                            docker build -t consume-rest-api-java --build-arg ARCH=aarch64/ .
                         
                         fi
                         
