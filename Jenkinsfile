@@ -35,7 +35,8 @@ pipeline {
                         
 //                     '''
                  script {
-                    app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+//                     app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+                     app = docker.build("consume-rest-api-java", ".")
                  }
                   
              }
