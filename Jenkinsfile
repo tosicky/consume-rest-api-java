@@ -26,10 +26,10 @@ pipeline {
                         os_arch=$(uname -m)
                         
                         if [ "$os_arch" ne "amd64" ] || [ "$os_arch" ne "arm64" ]; then
-                            docker.build("consume-rest-api-java", ".")
+                            docker build -t consume-rest-api-java .
                         
                         else
-                            docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+                            docker build -t consume-rest-api-java --build-arg ARCH=amd64/ .
                         
                         fi
                         
