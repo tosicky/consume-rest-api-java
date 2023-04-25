@@ -1,7 +1,7 @@
 pipeline {
-    environment {
-        registry = "https://816886327690.dkr.ecr.us-east-2.amazonaws.com"
-      }
+//     environment {
+//         registry = "https://816886327690.dkr.ecr.us-east-2.amazonaws.com"
+//       }
     agent { label 'jenkins_agent'}
     tools {
           maven '3.8.7'
@@ -26,7 +26,7 @@ pipeline {
                         os_arch=$(uname -m)
                         
                         if [ "$os_arch" ne "amd64" ] || [ "$os_arch" ne "arm64" ]; then
-                            docker.build("consume-rest-api-java", .")
+                            docker.build("consume-rest-api-java", ".")
                         
                         else
                             docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
