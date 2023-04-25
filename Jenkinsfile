@@ -22,22 +22,54 @@ pipeline {
         }
         stage('Build Docker'){
              steps {
-                 script{
-                    app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
-                  }
+                 sh '''#!/bin/bash
+                        os_arch=$(uname -m)
+                        
+                        if [ "$os_arch" ne "amd64" ] || [ "$os_arch" ne "arm64" ]; then
+                            docker.build("consume-rest-api-java", .")
+                        
+                        else
+                            docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+                        
+                        fi
+                        
+                    '''
+//                     app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+                  
              }
         }
-        stage('Publish Image') {
-             steps {
-                script{
-                    echo 'Deploy script goes here!'
-                    docker.withRegistry(registry,'ecr:us-east-2:aws-ecr-creds'){
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
+//         stage('Publish Image') {
+//              steps {
+//                 script{
+//                     echo 'Deploy script goes here!'
+//                     docker.withRegistry(registry,'ecr:us-east-2:aws-ecr-creds'){
+//                     app.push("${env.BUILD_NUMBER}")
+//                     app.push("latest")
+//                     }
+//                 }
+//              }
+//         }
+        stage('Build Docker Image') { 
+                steps { 
+                    script{
+                     app = docker.build("cms")
                     }
                 }
-             }
-        }
+            }
+         stage('Push to ECR') {
+                steps {
+                    script{
+                        withCredentials([string(credentialsId: 'ecr-url', variable: 'ECRURL')]) {
+                            withEnv(["ECRURL=${ECRURL}"]) {
+                                docker.withRegistry("$ECRURL", 'ecr:ca-central-1:aws-deploy') {
+                                app.push("${env.BUILD_NUMBER}")
+                                app.push("latest")
+                            }
+                        }
+                    }
+                  }
+            }
+         }
         stage("Cleanup") {
              steps {
               echo 'Removing unused docker containers and images..'
