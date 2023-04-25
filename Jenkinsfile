@@ -25,7 +25,7 @@ pipeline {
                  sh '''#!/bin/bash
                         os_arch=$(uname -m)
                         
-                        if [ "$os_arch" ne "amd64" ] || [ "$os_arch" ne "arm64" ]; then
+                        if [[ "$os_arch" ne "amd64" ]] || [[ "$os_arch" ne "arm64" ]]; then
                             docker build -t consume-rest-api-java .
                         
                         else
