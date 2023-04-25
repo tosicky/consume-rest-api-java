@@ -53,13 +53,13 @@ pipeline {
 //                 }
 //              }
 //         }
-        stage('Build Docker Image') { 
-                steps { 
-                    script{
-                     app = docker.build("cms")
-                    }
-                }
-            }
+//         stage('Build Docker Image') { 
+//                 steps { 
+//                     script{
+//                      app = docker.build("cms")
+//                     }
+//                 }
+//             }
          stage('Push to ECR') {
                 steps {
                     script{
