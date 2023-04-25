@@ -74,15 +74,15 @@ pipeline {
                   }
             }
          }
-        stage("Cleanup") {
-             steps {
-              echo 'Removing unused docker containers and images..'
-              sh 'docker ps -aq | xargs --no-run-if-empty docker rm'
-              // keep intermediate images as cache, only delete the final image
-               sh 'docker images -q | xargs --no-run-if-empty docker rmi'
-             }
-        }
-    }
+//         stage("Cleanup") {
+//              steps {
+//               echo 'Removing unused docker containers and images..'
+//               sh 'docker ps -aq | xargs --no-run-if-empty docker rm'
+//               // keep intermediate images as cache, only delete the final image
+//                sh 'docker images -q | xargs --no-run-if-empty docker rmi'
+//              }
+//         }
+//     }
 }
 
 post{
