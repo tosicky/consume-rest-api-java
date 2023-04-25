@@ -22,19 +22,21 @@ pipeline {
         }
         stage('Build Docker'){
              steps {
-                 sh '''#!/bin/bash
-                        os_arch=$(uname -m)
+//                  sh '''#!/bin/bash
+//                         os_arch=$(uname -m)
                         
-                        if [[ "$os_arch" != "amd64" ]] || [[ "$os_arch" != "arm64" ]] || [[ "$os_arch" != "aarch64" ]]; then
-                            docker build -t consume-rest-api-java .
+//                         if [[ "$os_arch" != "amd64" ]] || [[ "$os_arch" != "arm64" ]] || [[ "$os_arch" != "aarch64" ]]; then
+//                             docker build -t consume-rest-api-java .
                         
-                        else
-                            docker build -t consume-rest-api-java --build-arg ARCH=aarch64/ .
+//                         else
+//                             docker build -t consume-rest-api-java --build-arg ARCH=aarch64/ .
                         
-                        fi
+//                         fi
                         
-                    '''
-//                     app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+//                     '''
+                 script {
+                    app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
+                 }
                   
              }
         }
