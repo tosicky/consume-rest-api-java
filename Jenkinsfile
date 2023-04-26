@@ -65,7 +65,7 @@ pipeline {
                     script{
                         withCredentials([string(credentialsId: 'ecr-url', variable: 'ECRURL')]) {
                             withEnv(["ECRURL=${ECRURL}"]) {
-                                docker.withRegistry("$ECRURL", 'ecr:ca-central-1:aws-deploy') {
+                                docker.withRegistry("$ECRURL", 'ecr:us-east-1:aws-deploy') {
                                 app.push("${env.BUILD_NUMBER}")
                                 app.push("latest")
                             }
