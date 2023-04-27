@@ -16,10 +16,12 @@ fi
 
 
 ECR=$1
+ECR_REPO=$(echo "$ECR" | awk -F'^http[s]?://' '{print $2}')
+
 # IMAGE_TAG=$2
 
 # Pull app image from ecr
 sudo docker pull $ECR/consume-rest-api-java:latest
 
 # Run app in docker container
-sudo docker run -d --name consume-rest-api-java -p 80:8080 $ECR/consume-rest-api-java:latest
+sudo docker run -d --name consume-rest-api-java -p 80:8080 $ECR_REPO/consume-rest-api-java:latest
