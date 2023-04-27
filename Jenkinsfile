@@ -62,8 +62,8 @@ pipeline {
                             withEnv(["REMOTEIP=${REMOTEIP}"]) {
                                 sshagent(credentials: ['ec2-dev']) {
                                     sh "scp -o StrictHostKeyChecking=no  deploy_app.sh ec2-user@${env.REMOTEIP}:"
-                                    sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip chmod a+x deploy_app.sh"
-                                    sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip ./deploy_app.sh ${env.ECRURL}"
+                                    sh "ssh -o StrictHostKeyChecking=no ec2-user@${env.REMOTEIP} chmod a+x deploy_app.sh"
+                                    sh "ssh -o StrictHostKeyChecking=no ec2-user@${env.REMOTEIP} ./deploy_app.sh ${env.ECRURL}"
                                 }
                             }
                     }
