@@ -11,7 +11,7 @@ if [ $( sudo docker ps -a | grep -w 'consume-rest-api-java' | wc -l ) -gt 0 ]; t
   #  echo "Container removed"
   #fi
 else
-  echo "consumer-rest-api-java Container does not exist"
+  echo "consume-rest-api-java Container does not exist"
 fi
 
 
