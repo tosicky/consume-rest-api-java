@@ -1,5 +1,9 @@
 pipeline {
     
+    environment {
+       ECRURL = credentials('ec2-url')    
+    }
+    
     agent { label 'jenkins_agent'}
     tools {
           maven '3.8.7'
