@@ -44,7 +44,7 @@ pipeline {
                 steps {
                     script{
                         withCredentials([string(credentialsId: 'ecr-url', variable: 'ECRURL')]) {
-                            withEnv(["ECRURL=${ECRURL}"]) {
+                            withEnv(['ECRURL=$ECRURL']) {
                                 docker.withRegistry(env.ECRURL, 'ecr:us-east-1:aws-deploy') {
 //                                 app.push("${env.BUILD_NUMBER}")  # For tagging the image with the actual build number 
                                 app.push("latest")
@@ -58,10 +58,14 @@ pipeline {
             stage('Deploy dockerized app on ec2') {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
-                    sshagent(credentials: ['ec2-dev']) {
-                        sh "scp -o StrictHostKeyChecking=no  deploy_app.sh ec2-user@ec2-ip:"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip chmod a+x deploy_app.sh"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip ./deploy_app.sh ${env.ECRURL}"
+                    withCredentials([string(credentialsId: 'ec2-ip', variable: 'REMOTEIP')]) {
+                            withEnv(['REMOTEIP=${REMOTEIP}']) {
+                                sshagent(credentials: ['ec2-dev']) {
+                                    sh 'scp -o StrictHostKeyChecking=no  deploy_app.sh ec2-user@${env.REMOTEIP}:'
+                                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip chmod a+x deploy_app.sh'
+                                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip ./deploy_app.sh ${env.ECRURL}'
+                                }
+                            }
                     }
                 }
             }
