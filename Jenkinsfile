@@ -74,6 +74,18 @@ pipeline {
                   }
             }
          }
+        
+            stage('Deploy dockerized app on ec2') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    sshagent(credentials: ['ec2-dev']) {
+                        sh "scp -o StrictHostKeyChecking=no  deploy_app.sh ec2-user@ec2-ip:"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@52.89.51.188 chmod a+x deploy_app.sh"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@52.89.51.188 ./deploy_app.sh"
+                    }
+                }
+            }
+        }
 //         stage("Cleanup") {
 //              steps {
 //               echo 'Removing unused docker containers and images..'
