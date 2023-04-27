@@ -1,7 +1,5 @@
 pipeline {
-//     environment {
-//         registry = "https://816886327690.dkr.ecr.us-east-2.amazonaws.com"
-//       }
+    
     agent { label 'jenkins_agent'}
     tools {
           maven '3.8.7'
@@ -42,31 +40,13 @@ pipeline {
                   
              }
         }
-//         stage('Publish Image') {
-//              steps {
-//                 script{
-//                     echo 'Deploy script goes here!'
-//                     docker.withRegistry(registry,'ecr:us-east-2:aws-ecr-creds'){
-//                     app.push("${env.BUILD_NUMBER}")
-//                     app.push("latest")
-//                     }
-//                 }
-//              }
-//         }
-//         stage('Build Docker Image') { 
-//                 steps { 
-//                     script{
-//                      app = docker.build("cms")
-//                     }
-//                 }
-//             }
          stage('Push to ECR') {
                 steps {
                     script{
                         withCredentials([string(credentialsId: 'ecr-url', variable: 'ECRURL')]) {
                             withEnv(["ECRURL=${ECRURL}"]) {
-                                docker.withRegistry("$ECRURL", 'ecr:us-east-1:aws-deploy') {
-                                app.push("${env.BUILD_NUMBER}")
+                                docker.withRegistry(env.ECRURL, 'ecr:us-east-1:aws-deploy') {
+//                                 app.push("${env.BUILD_NUMBER}")  # For tagging the image with the actual build number 
                                 app.push("latest")
                             }
                         }
@@ -80,12 +60,14 @@ pipeline {
                 timeout(time: 2, unit: 'MINUTES') {
                     sshagent(credentials: ['ec2-dev']) {
                         sh "scp -o StrictHostKeyChecking=no  deploy_app.sh ec2-user@ec2-ip:"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@52.89.51.188 chmod a+x deploy_app.sh"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@52.89.51.188 ./deploy_app.sh"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip chmod a+x deploy_app.sh"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@ec2-ip ./deploy_app.sh ${env.ECRURL}"
                     }
                 }
             }
         }
+ 
+// TODO:
 //         stage("Cleanup") {
 //              steps {
 //               echo 'Removing unused docker containers and images..'
@@ -111,15 +93,6 @@ post{
     }
 
 }
-
-// def custom_msg()
-// {
-//   def JENKINS_URL= "localhost:8080"
-//   def JOB_NAME = env.JOB_NAME
-//   def BUILD_ID= env.BUILD_ID
-//   def JENKINS_LOG= " FAILED: Job [${env.JOB_NAME}] Logs path: ${JENKINS_URL}/job/${JOB_NAME}/${BUILD_ID}/consoleText"
-//   return JENKINS_LOG
-// }
 
 /* Slack Notification Set */
 def notifyProductionDeploy() {
