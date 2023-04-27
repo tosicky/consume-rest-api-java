@@ -1,7 +1,7 @@
 pipeline {
     
     environment {
-       ECRURL = credentials('ec2-url')    
+       ECRURL = credentials('ecr-url')    
     }
     
     agent { label 'jenkins_agent'}
