@@ -80,6 +80,7 @@ pipeline {
             agent {
                 docker {
                     image 'tosicky/python_tools' 
+                    label 'jenkins_agent'
                 }
             }
             steps {
