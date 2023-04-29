@@ -74,6 +74,17 @@ pipeline {
                 }
             }
         }
+        
+        stage('TEST APP') { 
+            agent {
+                docker {
+                    image 'tosicky/python_tools' 
+                }
+            }
+            steps {
+                sh 'python health.py'
+            }
+        }
  
 // TODO:
 //         stage("Cleanup") {
