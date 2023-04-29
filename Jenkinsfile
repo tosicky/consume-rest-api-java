@@ -1,7 +1,8 @@
 pipeline {
     
     environment {
-       ECRURL = credentials('ecr-url')    
+       ECRURL = credentials('ecr-url')   
+       REMOTEIP = credentials('ec2-ip')
     }
     
     agent { label 'jenkins_agent'}
