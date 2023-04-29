@@ -1,7 +1,7 @@
-import requests
+import requests, sys
 
 try:
-    app_status = requests.get("http://"+ env.EC2_IP + "/api/test/all")
+    app_status = requests.get("http://"+ sys.argv[1] + "/api/test/all")
 #     app_status = requests.get("http://localhost:8000/api/test/all")
 
     if app_status.status_code == 200:
