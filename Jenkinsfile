@@ -77,12 +77,12 @@ pipeline {
         }
         
         stage('TEST APP') { 
-            agent {
-                docker {
-                    image 'tosicky/python_tools' 
-                    label 'jenkins_agent'
-                }
-            }
+//             agent {
+//                 docker {
+//                     image 'tosicky/python_tools' 
+//                     label 'jenkins_agent'
+//                 }
+//             }
             steps {
                 sh "python health.py ${env.REMOTEIP}"
             }
