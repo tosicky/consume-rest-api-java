@@ -27,7 +27,7 @@ pipeline {
            steps{
              script {
 
-                withSonarQubeEnv('sonar-token') { // If you have configured more than one global server connection, you can specify its name
+                withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
                 sh "mvn clean install"
              }
           }
