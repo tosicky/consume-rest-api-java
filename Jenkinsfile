@@ -23,6 +23,16 @@ pipeline {
                }
             }
         }
+      stage('SonarQube analysis') {
+           steps{
+             script {
+
+                withSonarQubeEnv('sonar-token') { // If you have configured more than one global server connection, you can specify its name
+                sh "mvn clean install"
+             }
+          }
+        }
+    }
         stage('Build Docker'){
              steps {
 //                  sh '''#!/bin/bash
