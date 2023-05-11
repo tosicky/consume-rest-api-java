@@ -7,9 +7,6 @@ if [ $( sudo docker ps -a | grep -w 'app-rest-api' | wc -l ) -gt 0 ]; then
   test $? -eq 0 && echo "$STOPPED_CONTAINER container stopped" || echo "Container FAILED to stop"
   REMOVED_CONTAINER=$(sudo docker rm app-rest-api)
   test $? -eq 0 && echo "$REMOVED_CONTAINER container removed" || echo "Container FAILED to remove"
-  #if [ $( docker ps -a | grep -w prometheus | wc -l ) -eq 0 ]; then
-  #  echo "Container removed"
-  #fi
 else
   echo "app-rest-api container does not exist"
 fi
