@@ -8,8 +8,7 @@ The docker-compose.yaml file consists of the jenkins master, jenkins agent, sona
 ## Launching the Jenkins and sonarqube
 1. clone the repo
 1. Open the docker-compose.yaml and under the `agent` service, change the value of the JENKINS_AGENT_SSH_PUBKEY environment variable to your own generated public key.
-
-  *NB:*To generate a keypair, run `ssh-keygen -t rsa -b 4096`. This will generate a private and a public key. 
+   *NB:*To generate a keypair, run `ssh-keygen -t rsa -b 4096`. This will generate a private and a public key. 
 1. From your local machine, run `docker compose up -d`
 1. Verify the services are up and running using `docker ps`
 
