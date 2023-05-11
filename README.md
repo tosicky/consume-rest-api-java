@@ -52,19 +52,19 @@ Ref: https://www.jenkins.io/doc/book/using/using-agents/
 1. Go to Manage Jenkins option in main menu;
 1. Go to Manage Nodes and clouds item;
 1. Go to New Node option in side menu;
-1. Fill the Node/agent name and select the type; (e.g. Name: agent1, Type: Permanent Agent)
+1. Fill the Node/agent name and select the type; (e.g. Name: jenkins_agent, Type: Permanent Agent)
 1. Now fill the fields:
 ** Remote root directory; (e.g.: /home/jenkins )
-** label; (e.g.: agent1 )
-** usage; (e.g.: only build jobs with label expression…​)
-** Launch method; (e.g.: Launch agents by SSH )
-** Host; (e.g.: localhost or your IP address )
-** Credentials; (e.g.: jenkins )
-** Host Key verification Strategy; (e.g.: Manually trusted key verification …​ )
+** label; (set the label to -> jenkins_agent )
+** usage; ( only build jobs with label expression…​)
+** Launch method; ( Launch agents by SSH )
+** Host; ( jenkins-agent )
+** Credentials; ( jenkins )
+** Host Key verification Strategy; ( Manually trusted key verification …​ )
+** Click on the Advanced field, set `Port to 22`, set JavaPath to `/opt/java/openjdk/bin/java`
+1. Press the Save button and the agent1 will be registered, but offline for the time being. Click on it to see the launch process is successful.
+![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/68307d60-3475-4979-98a6-d4ff1f607de9)
 
-Press the Save button and the agent1 will be registered, but offline for the time being. Click on it.
-
-node offline
 
 ## Storing Pipeline Credentials on Jenkins
 
