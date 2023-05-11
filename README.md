@@ -47,6 +47,25 @@ Ref: https://www.jenkins.io/doc/book/using/using-agents/
 
 ** Click the Create button 
 
+### Setup and Add the Jenkins Agent to the Jenkins Master
+1. Go to your Jenkins dashboard;
+1. Go to Manage Jenkins option in main menu;
+1. Go to Manage Nodes and clouds item;
+1. Go to New Node option in side menu;
+1. Fill the Node/agent name and select the type; (e.g. Name: agent1, Type: Permanent Agent)
+1. Now fill the fields:
+** Remote root directory; (e.g.: /home/jenkins )
+** label; (e.g.: agent1 )
+** usage; (e.g.: only build jobs with label expression…​)
+** Launch method; (e.g.: Launch agents by SSH )
+** Host; (e.g.: localhost or your IP address )
+** Credentials; (e.g.: jenkins )
+** Host Key verification Strategy; (e.g.: Manually trusted key verification …​ )
+
+Press the Save button and the agent1 will be registered, but offline for the time being. Click on it.
+
+node offline
+
 ## Storing Pipeline Credentials on Jenkins
 
 ## Integrating Jenkins and Slack Notification
