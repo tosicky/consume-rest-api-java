@@ -78,31 +78,4 @@ pipeline {
             }
         }
 }
-
-post{
-     
-        failure{
-            // slackSend( channel: "#devops", color: "red", message:"${custom_msg()}")
-            notifyProductionDeploy()
-        }
- 
-        success{
-            // slackSend( channel: "#devops", color: "good", message: "${custom_msg()}")
-            notifyProductionDeploy()
-        }
-    }
-
-}
-
-/* Slack Notification Set */
-def notifyProductionDeploy() {
-if (currentBuild.currentResult == 'SUCCESS') {
-    def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
-        "${currentBuild.currentResult}"
-    slackSend(message: message, channel: '#devops', color: 'good')
-} else {
-    def message = "@here Build <${env.BUILD_URL}|${currentBuild.displayName}> " +
-        "${currentBuild.currentResult}"
-    slackSend(message: message, channel: '#devops', color: 'danger')
-}
 }
