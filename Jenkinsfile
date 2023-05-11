@@ -35,21 +35,7 @@ pipeline {
     }
         stage('Build Docker'){
              steps {
-//                  sh '''#!/bin/bash
-//                         os_arch=$(uname -m)
-                        
-//                         if [[ "$os_arch" != "amd64" ]] || [[ "$os_arch" != "arm64" ]] || [[ "$os_arch" != "aarch64" ]]; then
-//                             docker build -t consume-rest-api-java .
-                        
-//                         else
-//                             docker build -t consume-rest-api-java --build-arg ARCH=aarch64/ .
-                        
-//                         fi
-                        
-//                     '''
                  script {
-//                     app = docker.build("consume-rest-api-java", "--build-arg ARCH=amd64/ .")
-//                      app = docker.build("consume-rest-api-java", "--platform linux/amd64 .")
                      app = docker.build("consume-rest-api-java")
                  }
                   
@@ -87,27 +73,10 @@ pipeline {
         }
         
         stage('TEST APP') { 
-//             agent {
-//                 docker {
-//                     image 'tosicky/python_tools' 
-//                     label 'jenkins_agent'
-//                 }
-//             }
             steps {
                 sh "python health.py ${env.REMOTEIP}"
             }
         }
- 
-// TODO:
-//         stage("Cleanup") {
-//              steps {
-//               echo 'Removing unused docker containers and images..'
-//               sh 'docker ps -aq | xargs --no-run-if-empty docker rm'
-//               // keep intermediate images as cache, only delete the final image
-//                sh 'docker images -q | xargs --no-run-if-empty docker rmi'
-//              }
-//         }
-//     }
 }
 
 post{
