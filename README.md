@@ -66,14 +66,34 @@ Ref: https://www.jenkins.io/doc/book/using/using-agents/
 ![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/68307d60-3475-4979-98a6-d4ff1f607de9)
 
 
-## Storing Pipeline Credentials on Jenkins
-
 ## Integrating Jenkins and Slack Notification
 
 ## Setup Sonarqube
 1. Go to http://localhost:9090 on your browser
 1. Log in with the default sonarqube credential - username: admin, password: admin 
 N.B: You can change the password after the initial login
+1. Go to My Account
+![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/6ed14912-5db7-41d6-87af-e0b020a4371c)
+
+1. Click on Security tab
+1. Generate a token and store somewhere. You will need to add that token to Jenkins Credentials  
+
+
+## Storing Pipeline Credentials on Jenkins
+To run this pipeline as is, the following credentials should be created in Jenkins with the following as id.
+![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/1f0dd171-47b1-41c0-9438-00ad2933438a)
+
+
+** `ec2-dev` - The ec2 username (ec2-user) and ssh private key
+** `ec2-ip` - The ec2 IP
+** `ecr-url`- The ECR URL without the `https`
+** `git` - Your git username and password
+** `aws-deploy` - The AWS IAM user access key and secret key
+** `sonar-token` - Sonarqube access token
+** `slack` - slack app oauth2 token
+
+
+
 
 ## Integrating Jenkins and Sonarqube
 
