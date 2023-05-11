@@ -20,11 +20,17 @@ The jenkins password can be gotten inside the running jenkins master container. 
 1. Install suggested plugins
 ![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/f3412bdf-c970-44f1-9b1c-0c54954f6876)
 1. Install the following jenkins plugins needed to run the jenkins CI/CD pipeline:
+
 ** Amazon ECR plugin
+
 ** CloudBees Credentials Plugin
+
 ** Docker Pipeline
+
 ** SSH Agent
+
 ** SonarQube Scanner for Jenkins
+
 ** Slack Notification Plugin
 
 ## Configuring Jenkins Agent on Jenkins Master
@@ -38,11 +44,17 @@ Ref: https://www.jenkins.io/doc/book/using/using-agents/
 ![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/2897b332-52bf-4200-845b-934dd860f8c1)
 
 1. Fill in the form:
+
 ** Kind: SSH Username with private key;
+
 ** id: jenkins
+
 ** description: The jenkins ssh key
+
 ** username: jenkins
+
 ** Private Key: select Enter directly and press the Add button to insert the content of your private key generated in a previous step (above)
+
 ![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/9fcec328-1421-4062-9287-eb8427d52176)
 
 ** Click the Create button 
@@ -54,14 +66,23 @@ Ref: https://www.jenkins.io/doc/book/using/using-agents/
 1. Go to New Node option in side menu;
 1. Fill the Node/agent name and select the type; (e.g. Name: jenkins_agent, Type: Permanent Agent)
 1. Now fill the fields:
+
 ** Remote root directory; (e.g.: /home/jenkins )
+
 ** label; (set the label to -> jenkins_agent )
+
 ** usage; ( only build jobs with label expression…​)
+
 ** Launch method; ( Launch agents by SSH )
+
 ** Host; ( jenkins-agent )
+
 ** Credentials; ( jenkins )
+
 ** Host Key verification Strategy; ( Manually trusted key verification …​ )
+
 ** Click on the Advanced field, set `Port to 22`, set JavaPath to `/opt/java/openjdk/bin/java`
+
 1. Press the Save button and the agent1 will be registered, but offline for the time being. Click on it to see the launch process is successful.
 ![image](https://github.com/tosicky/consume-rest-api-java/assets/14918937/68307d60-3475-4979-98a6-d4ff1f607de9)
 
@@ -85,11 +106,17 @@ To run this pipeline as is, the following credentials should be created in Jenki
 
 
 ** `ec2-dev` - The ec2 username (ec2-user) and ssh private key
+
 ** `ec2-ip` - The ec2 IP
+
 ** `ecr-url`- The ECR URL without the `https`
+
 ** `git` - Your git username and password
+
 ** `aws-deploy` - The AWS IAM user access key and secret key
+
 ** `sonar-token` - Sonarqube access token
+
 ** `slack` - slack app oauth2 token
 
 
