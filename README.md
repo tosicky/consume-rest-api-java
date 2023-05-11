@@ -120,9 +120,30 @@ To run this pipeline as is, the following credentials should be created in Jenki
   * `slack` - slack app oauth2 token
 
 
-
-
 ## Integrating Jenkins and Sonarqube
+1. On Jenkins, go to Manage Jenkins > Global Tool Configuration
+1. Under SonarQube Scanner, click on Add SonarQube Scanner
+1. Enter Name: `sonar`
+1. Select `Install Automatically` 
+1. Click Save
+1. Go back to Manage Jenkins > Configure System
+1. Under SonarQube servers
+1. Add SonarQube 
+1. Enter Name: `sonarqube`
+1. Enter Server URL: `http://sonarqube01:9000`
+1. Enter Server authentication token: `sonar-token`
+1. Click Save     
 
+## Configure Maven on Jenkins
+1. On Jenkins, go to Manage Jenkins > Global Tool Configuration
+1. Under Maven, click on Add Maven
+1. Enter Name: `3.8.7`
+1. Enter MAVEN_HOME: `/opt/maven`
+1. Click Save  
+
+## (Optional) Slack Notification
+To add notification to the CICD Jenkins Pipeline, you need to install slack notification plugin on jenkins, add jenkins app to ypur slack workspace, configure the plugin on jenkins.
+
+You can use the Jenkinsfile in `cicd_slack` directory for running the CICD piepline
 
 
