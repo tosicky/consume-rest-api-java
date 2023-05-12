@@ -47,7 +47,6 @@ pipeline {
                         withCredentials([string(credentialsId: 'ecr-url', variable: 'ECRURL')]) {
                             withEnv(["ECRURL=${ECRURL}"]) {
                                 docker.withRegistry(env.ECRURL, 'ecr:us-east-1:aws-deploy') {
-//                                 app.push("${env.BUILD_NUMBER}")  # For tagging the image with the actual build number 
                                 app.push("latest")
                             }
                         }
