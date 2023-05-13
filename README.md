@@ -117,7 +117,7 @@ To run this pipeline as is, the following credentials should be created in Jenki
   * `slack` - slack app oauth2 token
 
 
-## Integrating Jenkins and Sonarqube
+## Integrating Jenkins and Sonarqube.
 1. On Jenkins, go to Manage Jenkins > Global Tool Configuration
 1. Under SonarQube Scanner, click on Add SonarQube Scanner
 1. Enter Name: `sonar`
