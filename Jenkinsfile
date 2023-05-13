@@ -1,9 +1,9 @@
 pipeline {
     
-    environment {
-       ECRURL = credentials('ecr-url')   
-       REMOTEIP = credentials('ec2-ip')
-    }
+//     environment {
+//        ECRURL = credentials('ecr-url')   
+//        REMOTEIP = credentials('ec2-ip')
+//     }
     
     agent { label 'jenkins_agent'}
     tools {
@@ -42,6 +42,9 @@ pipeline {
              }
         }
          stage('Push to ECR') {
+                environment {
+                   ECRURL = credentials('ecr-url')   
+                }
                 steps {
                     script{
                         withCredentials([string(credentialsId: 'ecr-url', variable: 'ECRURL')]) {
@@ -56,6 +59,10 @@ pipeline {
          }
         
             stage('Deploy dockerized app on ec2') {
+            environment {
+               ECRURL = credentials('ecr-url')   
+               REMOTEIP = credentials('ec2-ip')
+            }
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
                     withCredentials([string(credentialsId: 'ec2-ip', variable: 'REMOTEIP')]) {
@@ -71,7 +78,10 @@ pipeline {
             }
         }
         
-        stage('TEST APP') { 
+        stage('TEST APP') {
+            environment {
+               REMOTEIP = credentials('ec2-ip')
+            }
             steps {
                 sh "python health.py ${env.REMOTEIP}"
             }
