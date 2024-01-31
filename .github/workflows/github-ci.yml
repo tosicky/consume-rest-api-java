@@ -14,6 +14,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  PASSWORD: ${{ secrets.DOCKER_PASS }}
+  DOCKER_NAMESPACE: ${{ env.DOCKER_NAMESPACE }}
+  DOCKER_REPO: ${{ env.DOCKER_REPO }}
+
 jobs:
   build:
 
@@ -43,14 +49,14 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         env:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASS }}
+          username: ${{ USERNAME }}
+          password: ${{ PASSWORD }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.DOCKER_NAMESPACE }}/${{ env.DOCKER_REPO }}
+          images: ${{ DOCKER_NAMESPACE }}/${{ DOCKER_REPO }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
